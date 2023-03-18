@@ -1,3 +1,7 @@
+/**
+ * @file ascii_art.js
+ * @description ASCII Art Header
+ */
 module.exports = {
   init: () => {
     console.log(`
