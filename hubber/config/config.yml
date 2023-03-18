@@ -1,0 +1,25 @@
+template_version: 0.1
+config:
+  dir: hubber/config/
+
+network:
+  bind:
+    port: 8080
+    ipv4: 0.0.0.0
+    ipv6: ::0
+  ports:
+    - 8080
+  file: network.yml
+plugin:
+  file: plugin.yml
+auth:
+  file: authentication.yml
+logs:
+  file: log.yml
+
+
+
+
+
+
+  

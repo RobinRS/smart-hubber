@@ -1,0 +1,13 @@
+type:
+  error:
+    log_file: hubber/logs/crit.log
+    enabled: true
+  info:
+    log_file: hubber/logs/crit.log
+    enabled: false
+  # plugin: # Coming Soon
+  #  log_file: hubber/logs/plugin.log
+  #  enabled: true
+  http: #WIP
+    log_file: hubber/logs/network.log
+    enabled: false

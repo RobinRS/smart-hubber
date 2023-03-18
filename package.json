@@ -1,6 +1,6 @@
 {
-  "name": "core-hubber",
-  "version": "0.0.1",
+  "name": "hubber-core",
+  "version": "0.0.2",
   "description": "Open Source Low-Code Life Automatisation System",
   "main": "server.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "low-code",
     "system"
   ],
-  "author": "Robin Schleser & n1b0r 3l1x3r ",
+  "author": "Robin Schleser & n1b0r 3l1x3r",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/smart-hubber/core/issues"
@@ -29,5 +29,11 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "express": "^4.18.2",
+    "js-yaml": "^4.1.0",
+    "winston": "^3.8.2"
   }
 }

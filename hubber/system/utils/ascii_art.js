@@ -1,5 +1,6 @@
-module.exports = () => {
-  console.log(`
+module.exports = {
+  init: () => {
+    console.log(`
    _   _       _     _                  ____               
   | | | |_   _| |__ | |__   ___ _ __   / ___|___  _ __ ___ 
   | |_| | | | | '_ \\| '_ \\ / _ \\ '__| | |   / _ \\| '__/ _ \\
@@ -8,4 +9,5 @@ module.exports = () => {
                                                            
   Hubber v${process.env.npm_package_version} - component: ${process.env.npm_package_name}                                                   
   `)
+  }
 }

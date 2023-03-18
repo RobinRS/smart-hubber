@@ -1,0 +1,14 @@
+web_socket: true
+
+protection:
+  csrf_token: true
+  max_request: 5
+  ban_time: 30m
+
+upload:
+  max: 1k
+reverse_proxy:
+  enabled: true
+  addrs: localhost
+
+

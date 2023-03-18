@@ -1,0 +1,13 @@
+plugin_dir: hubber/plugins
+
+runtime:
+  update_interval: 1d
+  update_method: auto # auto, ask, never
+  notify:
+    enabled: true
+    method: push # push, mail
+
+
+  
+
+  
