@@ -13,14 +13,18 @@ app.get('/', certAuth, (req, res) => {
   return res.send('Hello, world!')
 })
 
-https
-  .createServer(
-    {
-      requestCert: true,
-      rejectUnauthorized: false,
-      cert: fs.readFileSync(process.env.CERT_PATH),
-      key: fs.readFileSync(process.env.CERT_KEY)
-    },
-    app
-  )
-  .listen(8080)
+module.exports = () => {
+  https
+    .createServer(
+      {
+        requestCert: true,
+        rejectUnauthorized: false,
+        cert: fs.readFileSync(process.env.CERT_PATH),
+        key: fs.readFileSync(process.env.CERT_KEY)
+      },
+      app
+    )
+    .listen(8443, () => {
+      console.log('Server listening on port 8443')
+    })
+}

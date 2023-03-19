@@ -22,3 +22,4 @@ const pm = new PluginManager(cm, logger)
 
 ascii.init()
 pm.init()
+require('./system/web/web_router')()
