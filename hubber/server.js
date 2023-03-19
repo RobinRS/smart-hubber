@@ -8,7 +8,9 @@
  * @requires module:system/utils/config_manager
  * @requires module:system/utils/ascii_art
  * @requires module:system/utils/logger
+ * @requires module:dotenv
  */
+require('dotenv').config()
 const PluginManager = require('./system/plugin/plugin_manager')
 const ConfigManager = require('./system/utils/config_manager')
 

@@ -2,3 +2,4 @@ node_modules/
 package-lock.json
 hubber/plugins/*
 hubber/logs/*
+.env
