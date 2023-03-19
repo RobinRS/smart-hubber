@@ -1,6 +1,6 @@
 const clientAuthMiddleware = () => (req, res, next) => {
   const cert = req.socket.getPeerCertificate()
-
+  debugger;
   if (req.client.authorized) {
     res.send(`Hello ${cert.subject.CN}, your certificate was issued by ${cert.issuer.CN}!`)
   } else if (cert.subject) {
