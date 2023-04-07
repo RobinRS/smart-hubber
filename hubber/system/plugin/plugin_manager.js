@@ -90,8 +90,8 @@ class PluginManager {
       this.pluginMap[plugin].plugin.getPluginDir = () => { return dir }
 
       // Sets the methods for registering and unregistering activities
-      this.pluginMap[plugin].plugin.registerActivity = (callback, interval, createdBy) => { this.registerActivity(plugin, callback, interval, createdBy) }
-      this.pluginMap[plugin].plugin.unregisterActivity = (from) => { this.unregisterActivity(plugin, from) }
+      this.pluginMap[plugin].plugin.registerActivity = (callback, interval, createdBy) => { this._registerActivity(plugin, callback, interval, createdBy) }
+      this.pluginMap[plugin].plugin.unregisterActivity = (from) => { this._unregisterActivity(plugin, from) }
 
       // Initializes the plugin
       this.pluginMap[plugin].plugin.onInit()
@@ -123,7 +123,7 @@ class PluginManager {
     const plugins = []
     for (const plugin of Object.keys(this.pluginMap)) {
       if (this.pluginMap[plugin].status === 'loaded') {
-        plugins.push(plugin)
+        plugins.push(this.pluginMap[plugin])
       }
     }
     return plugins
@@ -144,7 +144,7 @@ class PluginManager {
    * @param {number} interval - Interval in milliseconds
    * @param {string} createdBy - Plugin name of the plugin which created the activity
    */
-  registerActivity (plugin, callback, interval, createdBy) {
+  _registerActivity (plugin, callback, interval, createdBy) {
     this._activitys[plugin] = (this._activitys[plugin] === undefined
       ? { isActive: true, task: [] }
       : this._activitys[plugin])
@@ -162,7 +162,7 @@ class PluginManager {
    * @param {string} plugin - Plugin name
    * @param {string} from - Plugin name of the plugin which created the activity
    */
-  unregisterActivity (plugin, from) {
+  _unregisterActivity (plugin, from) {
     this._activitys[plugin].task = this._activitys[plugin].task.filter((activity) => {
       return activity.createdBy !== from
     })
@@ -202,6 +202,15 @@ class PluginManager {
   }
 
   /**
+   * @description Registers a web router / url path to interact with the plugin
+   * @param {string} plugin - Plugin name
+   * @param {Express.Router} router - Router instance
+   */
+  registerWebRouter (plugin, router) {
+    this.pluginMap[plugin]._webRouter = router
+  }
+
+  /**
    * @description Stops the activity interval
    * @private
    */
@@ -235,6 +244,7 @@ class PluginManager {
    * @param {string} version - Dependency version
    */
   _installDependency (depPackage, version) {
+    /*
     const childProcess = require('child_process')
     try {
       const result = childProcess.execSync(`npm install ${depPackage}@${version}`).toString()
@@ -242,6 +252,7 @@ class PluginManager {
     } catch (e) {
       this.log.error(e)
     }
+    */
   }
 }
 

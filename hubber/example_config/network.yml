@@ -3,10 +3,15 @@ web_socket: true
 cert_file: auth/.cert.pem
 key_file: auth/.privkey.pem
 
+web_titles:
+  logged_in: Hubber Dashboard
+  public: Hubber
+
 protection:
   csrf_token: true
   max_request: 5
   ban_time: 30m
+  no_index: true
 
 upload:
   max: 1k

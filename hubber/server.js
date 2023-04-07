@@ -21,7 +21,7 @@ const ascii = require('./system/utils/ascii_art')
 const logger = require('./system/utils/logger')(cm)
 
 const pm = new PluginManager(cm, logger)
-const web = new WebManager(cm, logger)
+const web = new WebManager(cm, pm, logger)
 
 ascii.init()
 pm.init()

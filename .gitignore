@@ -5,3 +5,5 @@ hubber/logs/*
 .env
 .privkey.pem
 .cert.pem
+config/
+out/

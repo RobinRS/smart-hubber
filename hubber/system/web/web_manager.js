@@ -2,17 +2,23 @@
 
 const https = require('https')
 const express = require('express')
+const ejs = require('ejs')
+const path = require('path')
 
 class WebManager {
-  constructor (config, logger) {
+  constructor (config, pluginManager, logger) {
     this.netConfig = config.get('network')
     this.authConfig = config.get('auth')
     this.config = config
     this.log = logger
+    this.pluginManager = pluginManager
   }
 
   init () {
     this.app = express()
+    this.app.set('views', path.join(__dirname, '../../../hubber/assets/dashboard'))
+    this.app.set('view engine', 'ejs')
+    this._registerDefaultWebRouter()
     this._fallback()
     this.start()
   }
@@ -40,19 +46,25 @@ class WebManager {
     https
       .createServer(opts, this.app)
       .listen(portBind, ipBind, () => {
-        this.log.info(`Webserver listening on  ${portBind}:${portBind}`)
+        this.log.info(`Webserver listening on  ${ipBind}:${portBind}`)
       })
   }
 
   _registerDefaultWebRouter () {
-
+    let homeRouter = require('./routes/home')
+    homeRouter = homeRouter(this.pluginManager, this.config)
+    this.registerWebRouter('/', homeRouter)
   }
 
   _fallback () {
+    this.app.get('*', function (req, res) {
+      this.log.error(req.url + ' not found')
+      res.status(404).send('Not found')
+    }.bind(this))
     this.app.use(function (err, req, res, next) {
-      console.error(err.stack)
-      res.status(500).send('Something broke!')
-    })
+      this.log.error(req.url + ' ' + err.stack)
+      res.redirect('/')
+    }.bind(this))
   }
 }
 
