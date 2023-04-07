@@ -25,8 +25,6 @@ class WebManager {
     const ipBind = this.netConfig.bind.ipv4
     const portBind = this.netConfig.bind.port
 
-    debugger;
-
     const opts = {
       requestCert: true,
       rejectUnauthorized: false,
@@ -42,7 +40,7 @@ class WebManager {
     https
       .createServer(opts, this.app)
       .listen(portBind, ipBind, () => {
-        console.log(`Server listening on port ${portBind}`)
+        this.log.info(`Webserver listening on  ${portBind}:${portBind}`)
       })
   }
 

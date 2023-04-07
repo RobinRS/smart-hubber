@@ -19,6 +19,11 @@ class ConfigManager {
    * @example config.get('plugin').plugin_dir
    */
   constructor (configFile) {
+    if (!fs.existsSync(configFile)) {
+      console.error('Config file not found: ' + configFile)
+      process.exit()
+    }
+
     this.configFile = path.resolve(configFile)
     this.config = {}
     this.configFiles = {}
@@ -42,7 +47,6 @@ class ConfigManager {
   }
 
   _readSubFileToRuntime (config, key) {
-    debugger;
     for (const subConfigKey in config[key]) {
       if (subConfigKey.endsWith('_file')) {
         let path = config[key][subConfigKey]

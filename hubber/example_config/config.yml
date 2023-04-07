@@ -3,7 +3,7 @@ template_version: 0.1
 network:
   bind:
     port: 443
-    ipv4: 185.250.36.148
+    ipv4: 0.0.0.0
   file: network.yml
 
 config:
