@@ -1,8 +1,7 @@
 web_socket: true
 
-tls:
-  cert_file: auth/.cert.pem
-  key_file: auth/.privkey.pem
+cert_file: auth/.cert.pem
+key_file: auth/.privkey.pem
 
 protection:
   csrf_token: true

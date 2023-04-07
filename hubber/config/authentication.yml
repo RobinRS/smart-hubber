@@ -2,7 +2,7 @@ methods:
   default: local
   client_cert: 
     enabled: true
-    trusted_ca_file: hubber/config/auth/server.pem.example
+    trusted_ca_file: auth/server.pem.example
   local:
     enabled: false
     store: sqlite

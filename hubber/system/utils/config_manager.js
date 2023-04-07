@@ -36,15 +36,27 @@ class ConfigManager {
       if (this.config[key].file !== undefined) {
         this.config[key] = Object.assign(this.config[key], this.load(this.configDir + '/' + this.config[key].file))
         this.configFiles[key] = this.configDir + this.config[key].file
-      }
-      if (key.endsWith('_file')) {
-        let path = this.config[key]
-        if (!path.startsWith('/')) {
-          path = this.configDir + '/' + this.config[key]
-        }
-        this.config[key] = this.load(path)
+        this.config = this._readSubFileToRuntime(this.config, key)
       }
     }
+  }
+
+  _readSubFileToRuntime (config, key) {
+    debugger;
+    for (const subConfigKey in config[key]) {
+      if (subConfigKey.endsWith('_file')) {
+        let path = config[key][subConfigKey]
+        if (!path.startsWith('/')) {
+          path = this.configDir + '/' + config[key][subConfigKey]
+        }
+        config[key][subConfigKey] = fs.readFileSync(path, 'utf8')
+      }
+    }
+    return config
+  }
+
+  requestReadSubFileToRuntime (config, key) {
+    return this._readSubFileToRuntime(config, key)
   }
 
   /**
