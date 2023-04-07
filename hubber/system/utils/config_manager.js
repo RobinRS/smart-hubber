@@ -38,7 +38,11 @@ class ConfigManager {
         this.configFiles[key] = this.configDir + this.config[key].file
       }
       if (key.endsWith('_file')) {
-        this.config[key] = this.load(this.configDir + '/' + this.config[key])
+        let path = this.config[key]
+        if (!path.startsWith('/')) {
+          path = this.configDir + '/' + this.config[key]
+        }
+        this.config[key] = this.load(path)
       }
     }
   }

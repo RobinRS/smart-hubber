@@ -1,6 +1,5 @@
 'use strict'
 
-const fs = require('fs')
 const https = require('https')
 const express = require('express')
 
@@ -13,6 +12,8 @@ class WebManager {
 
   init () {
     this.app = express()
+    this._fallback()
+    this.start()
   }
 
   registerWebRouter (path, router) {
@@ -22,23 +23,20 @@ class WebManager {
   start () {
     const ipBind = this.netConfig.bind.ipv4
     const portBind = this.netConfig.bind.port
-    const trustedCA = []
+
+    const opts = {
+      requestCert: true,
+      rejectUnauthorized: false,
+      cert: this.netConfig.tls.cert_file,
+      key: this.netConfig.tls.key_file
+    }
 
     if (this.authConfig.methods.client_cert.enabled) {
-      trustedCA.push(fs.readFileSync(this.authConfig.methods.client_cert.trusted_ca))
+      opts.ca = [this.authConfig.methods.client_cert.trusted_ca_file]
     }
 
     https
-      .createServer(
-        {
-          requestCert: true,
-          rejectUnauthorized: false,
-          cert: this.netConfig.tls.cert,
-          key: this.netConfig.tls.key,
-          ca: [fs.readFileSync(process.env.CERT_CA)]
-        },
-        this.app
-      )
+      .createServer(opts, this.app)
       .listen(portBind, ipBind, () => {
         console.log(`Server listening on port ${portBind}`)
       })
