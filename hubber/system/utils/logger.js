@@ -5,7 +5,9 @@ const winston = require('winston')
  * @param {ConfigManager} config - ConfigManager instance
  * @returns {winston.Logger} - winston logger instance
  */
-const Initializing = (config) => {
+const init = (config) => {
+  const loggerConfig = config.get('logs')
+
   // Define the custom settings for console logging
   const alignColorsAndTime = winston.format.combine(
     winston.format.colorize({
@@ -23,9 +25,9 @@ const Initializing = (config) => {
   const logger = winston.createLogger({
     format: winston.format.json(),
     transports: [
-      new winston.transports.File({ filename: config.type.error.log_file, level: 'error' }),
-      new winston.transports.File({ filename: config.type.info.log_file, level: 'info' }),
-      new winston.transports.File({ filename: config.type.http.log_file, level: 'http' })
+      new winston.transports.File({ filename: loggerConfig.type.error.log_file, level: 'error' }),
+      new winston.transports.File({ filename: loggerConfig.type.info.log_file, level: 'info' }),
+      new winston.transports.File({ filename: loggerConfig.type.http.log_file, level: 'http' })
     ]
   })
 
@@ -39,4 +41,4 @@ const Initializing = (config) => {
   return logger
 }
 
-module.exports = { init: Initializing }
+module.exports = init

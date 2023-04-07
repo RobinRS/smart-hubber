@@ -1,5 +1,9 @@
 web_socket: true
 
+tls:
+  cert_file: auth/.cert.pem
+  key_file: auth/.privkey.pem
+
 protection:
   csrf_token: true
   max_request: 5
@@ -8,7 +12,7 @@ protection:
 upload:
   max: 1k
 reverse_proxy:
-  enabled: true
+  enabled: false
   addrs: localhost
 
 

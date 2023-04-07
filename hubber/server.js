@@ -6,6 +6,7 @@
  * @module server
  * @requires module:system/plugin/plugin_manager
  * @requires module:system/utils/config_manager
+ * @requires module:system/web/web_router
  * @requires module:system/utils/ascii_art
  * @requires module:system/utils/logger
  * @requires module:dotenv
@@ -13,13 +14,15 @@
 require('dotenv').config()
 const PluginManager = require('./system/plugin/plugin_manager')
 const ConfigManager = require('./system/utils/config_manager')
-
-const ascii = require('./system/utils/ascii_art')
+const WebManager = require('./system/web/web_manager')
 
 const cm = new ConfigManager('hubber/config/config.yml')
-const logger = require('./system/utils/logger').init(cm.get('logs'))
+const ascii = require('./system/utils/ascii_art')
+const logger = require('./system/utils/logger')(cm)
+
 const pm = new PluginManager(cm, logger)
+const web = new WebManager(cm, logger)
 
 ascii.init()
 pm.init()
-require('./system/web/web_router')()
+web.init()

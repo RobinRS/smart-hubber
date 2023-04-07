@@ -1,15 +1,13 @@
 template_version: 0.1
-config:
-  dir: hubber/config/
 
 network:
   bind:
-    port: 8080
-    ipv4: 0.0.0.0
-    ipv6: ::0
-  ports:
-    - 8080
+    port: 443
+    ipv4: 185.250.36.148
   file: network.yml
+
+config:
+  dir: hubber/config/
 plugin:
   file: plugin.yml
 auth:

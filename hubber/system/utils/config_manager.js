@@ -37,6 +37,9 @@ class ConfigManager {
         this.config[key] = Object.assign(this.config[key], this.load(this.configDir + '/' + this.config[key].file))
         this.configFiles[key] = this.configDir + this.config[key].file
       }
+      if (key.endsWith('_file')) {
+        this.config[key] = this.load(this.configDir + '/' + this.config[key])
+      }
     }
   }
 

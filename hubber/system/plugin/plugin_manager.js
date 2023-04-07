@@ -3,9 +3,8 @@
 const fs = require('fs')
 
 /**
- * PluginManager class
  * @class PluginManager
- * @description Manages the plugin instances
+ * @description Manages the plugin instances and provides methods for loading and unloading plugins, registering and unregistering activities and starting and stopping the update process
  * @example const pluginManager = new PluginManager(config, logger)
  * @example pluginManager.init()
  * @example pluginManager.loadPlugin('test', 'plugins/test/') - Runtime Plugin loading

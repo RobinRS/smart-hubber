@@ -1,17 +1,19 @@
 methods:
   default: local
   client_cert: 
-    enabled: false
-    ca: hubber/config/auth/server.pem.example
-  local:
     enabled: true
+    trusted_ca_file: hubber/config/auth/server.pem.example
+  local:
+    enabled: false
+    store: sqlite
+    registration: false
   oauth2:
     enabled: false
-    authorizationURL: 'https://www.example.com/oauth2/authorize'
-    tokenURL: 'https://www.example.com/oauth2/token'
+    authorizationURL: https://www.example.com/oauth2/authorize
+    tokenURL: https://www.example.com/oauth2/token
     clientID: EXAMPLE_CLIENT_ID
     clientSecret: EXAMPLE_CLIENT_SECRET
-    callbackURL: "http://localhost:3000/auth/example/callback"
+    callbackURL: http://localhost:3000/auth/example/callback
 
 auth_required: true
 exceptions:
