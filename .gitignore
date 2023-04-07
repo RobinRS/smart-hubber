@@ -7,3 +7,4 @@ hubber/logs/*
 .cert.pem
 config/
 out/
+.gitignore
