@@ -1,8 +1,8 @@
 const router = require('express').Router()
+const PluginRouter = require('./default')
 
 function registerHomeRouter (pluginManager, config) {
-  let pluginRouter = require('./default')
-  pluginRouter = pluginRouter(pluginManager, config)
+  const pluginRouter = PluginRouter(pluginManager, config)
   router.use('/', pluginRouter)
 
   router.get('/', (req, res, next) => {
@@ -11,7 +11,7 @@ function registerHomeRouter (pluginManager, config) {
       base: {
         metadata: {
           web: {
-            title: 'Hubber'
+            title: 'Home Hub | Schleser Family'
           }
         },
         parameter: {
@@ -23,7 +23,8 @@ function registerHomeRouter (pluginManager, config) {
         },
         banner: {
           message: 'Welcome to Hubber',
-          type: 'info'
+          type: 'info',
+          title: 'Hello there....'
         },
         user: {
           name: cert?.subject?.CN,

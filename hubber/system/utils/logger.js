@@ -25,9 +25,7 @@ const init = (config) => {
   const logger = winston.createLogger({
     format: winston.format.json(),
     transports: [
-      new winston.transports.File({ filename: loggerConfig.type.error.log_file, level: 'error' }),
-      new winston.transports.File({ filename: loggerConfig.type.info.log_file, level: 'info' }),
-      new winston.transports.File({ filename: loggerConfig.type.http.log_file, level: 'http' })
+      new winston.transports.File({ filename: loggerConfig.type.error.log_file, level: 'error' })
     ]
   })
 

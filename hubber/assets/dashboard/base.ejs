@@ -6,28 +6,119 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/css/custom.css" />
   <title>
     <%= base.metadata.web.title %>
   </title>
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <script>
+
+  </script>
 </head>
 
-<body>
+<body class="flex flex-col overflow-y-scroll no-scrollbar relative flex-col">
+  <nav class="w-10 h-full lg:w-full lg:h-10 flex justify-between absolute top-0 z-10">
+    <ul class="w-full flex">
+      <li>
+        <a class=" rounded-lg mt-0 w-40 h-40 relative left-5 hover:cursor-pointer">
+          <img src="/static/images/svg/Wappen.svg" height="35" width="35"
+            class="p-1 hover:bg-gray-300 hover:shadow-md bg-opacity-20 rounded-lg" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main class="flex-grow w-full relative z-0 top-0">
+    <img src="/static/images/png/bg.png" class="h-screen w-screen object-cover absolute top-0 pointer-events-none"
+      draggable="false">
+    <div class="open-apps h-screen w-screen">
+      <div class="absolute bg-gray-600 window rounded-lg" id="app-0"
+        style="top: 100px; left: 0; width: 100px; height: 200px; display: none">
+        <div class="w-full h-full relative">
+          <div class="window-bar h-8 w-full bg-black rounded-t-lg">
+            <div class="flex float-right items-center justify-around w-20 h-full">
+              <div class="bg-green-500 h-4 w-4 rounded-full cursor-pointer"></div>
+              <div class="bg-yellow-500 h-4 w-4 rounded-full cursor-pointer"></div>
+              <div class="bg-red-500 h-4 w-4 rounded-full cursor-pointer"></div>
+
+            </div>
+          </div>
+          <div class="window-resize cursor-nwse-resize h-1 w-1 bg-black bottom-0 right-0 absolute"></div>
+        </div>
+      </div>
+
+      <div class="absolute bg-gray-600 window rounded-lg" id="app-1"
+        style="top: 100px; left: 0; width: 100px; height: 200px; display: none">
+        <div class="w-full h-full relative">
+          <div class="window-bar h-8 w-full bg-black rounded-t-lg">
+            <div class="flex float-right items-center justify-around w-20 h-full">
+              <div class="bg-green-500 h-4 w-4 rounded-full cursor-pointer"></div>
+              <div class="bg-yellow-500 h-4 w-4 rounded-full cursor-pointer"></div>
+              <div class="bg-red-500 h-4 w-4 rounded-full cursor-pointer"></div>
+            </div>
+          </div>
+          <iframe src="/proxy?url=http://192.168.2.211/" height="100%" width="100%"></iframe>
+          <div class="window-resize cursor-nwse-resize h-1 w-1 bg-black bottom-0 right-0 absolute"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
   <% if (base.parameter.hasBanner) { %>
-    <h2>
-      <%= base.banner.message %><span>
-          (<%= base.banner.type %>/Dev:<%= base.user.isDev %>)
-        </span>
-    </h2>
+
+    <div
+      class="fixed right-10 bottom-10 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden">
+
+      <!-- Text -->
+      <div class="">
+        <div class="relative overflow-hidden px-8 pt-8">
+          <div width="80" height="77" class="absolute -top-10 -right-10 text-yellow-500">
+            <svg width="120" height="119" viewBox="0 0 120 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path opacity="0.3"
+                d="M6.38128 49.1539C3.20326 32.893 13.809 17.1346 30.0699 13.9566L70.3846 6.07751C86.6455 2.89948 102.404 13.5052 105.582 29.7661L113.461 70.0808C116.639 86.3417 106.033 102.1 89.7724 105.278L49.4577 113.157C33.1968 116.335 17.4384 105.729 14.2604 89.4686L6.38128 49.1539Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <div class="text-lg flex flex-col uppercase">
+            <small>
+              <%= base.banner.type %>
+            </small>
+            <span class="text-3xl font-bold pb-4">
+              <%= base.banner.title %>
+            </span>
+          </div>
+          <div class="pb-4">
+            <p>
+              <%= base.banner.message %>
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <!-- Boutons -->
+      <div class="w-full flex justify-center items-center border-t border-solid border-gray-200">
+        <button
+          class="border-r border-gray-200 flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-red-400 duration-150">
+          Nop
+        </button>
+        <button class="flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-green-400 duration-150">
+          Jup
+        </button>
+      </div>
+    </div>
     <% } %>
-
-      <% if (base.parameter.showHome) { %>
-        <%- include('pages/home', {base: base}) %>
-          <% } else if(base.parameter.showPublic) { %>
-            <%- include('pages/public', {base: base}) %>
-              <% } else if(base.parameter.showLogin) { %>
-                <%- include('pages/login', {base: base}) %>
-                  <% } %>
-
 </body>
+<script src="/static/js/window.handler.js"></script>
 
 </html>

@@ -2,8 +2,8 @@
 
 const https = require('https')
 const express = require('express')
-const ejs = require('ejs')
 const path = require('path')
+const HomeRouter = require('./routes/home')
 
 class WebManager {
   constructor (config, pluginManager, logger) {
@@ -18,6 +18,7 @@ class WebManager {
     this.app = express()
     this.app.set('views', path.join(__dirname, '../../../hubber/assets/dashboard'))
     this.app.set('view engine', 'ejs')
+    this._assetsRouter()
     this._registerDefaultWebRouter()
     this._fallback()
     this.start()
@@ -46,14 +47,17 @@ class WebManager {
     https
       .createServer(opts, this.app)
       .listen(portBind, ipBind, () => {
-        this.log.info(`Webserver listening on  ${ipBind}:${portBind}`)
+        this.log.info(`Webserver listening on  ${ipBind}:${portBind} `)
       })
   }
 
   _registerDefaultWebRouter () {
-    let homeRouter = require('./routes/home')
-    homeRouter = homeRouter(this.pluginManager, this.config)
-    this.registerWebRouter('/', homeRouter)
+    const homeRoute = HomeRouter(this.pluginManager, this.config)
+    this.registerWebRouter('/', homeRoute)
+  }
+
+  _assetsRouter () {
+    this.app.use('/static', express.static('hubber/assets'))
   }
 
   _fallback () {
